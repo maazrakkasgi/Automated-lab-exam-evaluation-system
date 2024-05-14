@@ -1,35 +1,48 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_console_widget/flutter_console.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({
+class HomePage extends StatefulWidget {
+  const HomePage({
     super.key,
   });
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final FlutterConsoleController controller = FlutterConsoleController();
+
   dynamic process;
-  void execFunction() async {
+
+  Future<void> execFunction() async {
     const pythonScriptPath = 'lib\\cat.py';
+    print("Called");
 
     // Start the Python script process
     process = await Process.start('python', [pythonScriptPath]);
     process.stdout.transform(utf8.decoder).listen((data) {
-      print('Python script says: $data');
+      print(data);
+      controller.print(message: data, endline: true);
     });
 
     // Listen for errors from the Python script
     process.stderr.transform(utf8.decoder).listen((data) {
-      print('Python script error: $data');
+      print(data);
+      controller.print(message: data, endline: true);
     });
   }
 
   void echoLoop() {
     controller.scan().then((value) {
       controller.print(message: value, endline: true);
-      process.stdin.add(value);
+      Uint8List data = Uint8List.fromList(value.codeUnits);
+      process.stdin.add(data);
+      print(data);
       controller.focusNode.requestFocus();
       echoLoop();
     });
