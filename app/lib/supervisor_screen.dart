@@ -1,3 +1,4 @@
+import 'package:app/subjects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'user_data.dart';
@@ -26,7 +27,8 @@ class SupervisorScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const StudentInfoScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const StudentInfoScreen()),
                 );
               },
               child: const Text('Students Info'),
@@ -36,20 +38,30 @@ class SupervisorScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ExamsScreen()),
+                  MaterialPageRoute(builder: (context) => ExamsScreen()),
                 );
               },
               child: const Text('Exams'),
             ),
             const SizedBox(height: 10),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => const GradesScreen()),
+            //     );
+            //   },
+            //   child: const Text('Grades'),
+            // ),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const GradesScreen()),
+                  MaterialPageRoute(builder: (context) => SubjectsPage()),
                 );
               },
-              child: const Text('Grades'),
+              child: const Text('Subjects'),
             ),
           ],
         ),

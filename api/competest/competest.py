@@ -76,6 +76,7 @@ def main(language, program_file, test_cases_in, compiler_args=None):
             raise BadParameter("Test case file is missing. Please use -t")
 
     test_cases = get_test_cases(test_cases_in)
+    #test_cases = parse_cases_txt(test_cases_in)
     test_cases_in.close()
     if test_cases == "error":
         raise BadParameter(
@@ -126,7 +127,7 @@ def main(language, program_file, test_cases_in, compiler_args=None):
                     "time_taken": time_taken,
                     "expected_output": required_output,
                     "output": actual_output,
-                    "success": True,
+                    "success": False,
                     "Error": False
                 }
             else:
@@ -139,8 +140,8 @@ def main(language, program_file, test_cases_in, compiler_args=None):
                 "time_taken" : time_taken,
                 "expected_output": required_output,
                 "output" : error,
-                "success" : True,
-                "Error" : False
+                "success" : False,
+                "Error" : True
             }
 
     if file_to_run != program_file:

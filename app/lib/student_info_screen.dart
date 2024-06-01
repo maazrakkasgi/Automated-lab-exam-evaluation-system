@@ -13,7 +13,7 @@ class StudentInfoScreen extends StatefulWidget {
 class _StudentInfoScreenState extends State<StudentInfoScreen> {
   List<dynamic> _students = [];
   bool _isLoading = false;
-  String _selectedSemester = '1'; // Default semester filter
+  String _selectedSemester = '8'; // Default semester filter
 
   @override
   void initState() {
@@ -27,7 +27,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
     });
 
     final response = await http.get(Uri.parse(
-        'http://127.0.0.1:5000/students?semester=$_selectedSemester'));
+        'http://192.168.0.16:5000/students?semester=$_selectedSemester'));
     if (response.statusCode == 200) {
       setState(() {
         _students = jsonDecode(response.body);
@@ -58,7 +58,8 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddStudentScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const AddStudentScreen()),
               ).then((value) {
                 if (value == true) {
                   _fetchStudents();

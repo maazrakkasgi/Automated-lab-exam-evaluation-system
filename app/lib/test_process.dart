@@ -21,6 +21,8 @@ Future<void> main() async {
   // Listen for user input and send it to the Python script
   print('Please enter input for the Python script:');
   stdin.listen((input) {
+    print(input.runtimeType);
+    print(input);
     process.stdin.add(input);
     process.stdin.flush();
   });

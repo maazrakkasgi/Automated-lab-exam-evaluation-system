@@ -64,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
       _errorMessage = null;
     });
 
-    const String url = 'http://127.0.0.1:5000/auth';
+    const String url = 'http://192.168.0.16:5000/auth';
     final Map<String, String> body = {
       'username': _usernameController.text,
       'password': _passwordController.text,
@@ -81,8 +81,9 @@ class _LoginFormState extends State<LoginForm> {
 
       if (response.statusCode == 200) {
         // Authentication successful
+        print(response.body);
         final responseData = jsonDecode(response.body);
-        final String userId = responseData['userId'];
+        final String userId = responseData['userId'].toString();
         Provider.of<UserData>(context, listen: false)
             .setUser(userId, widget.userType);
 
